@@ -1,0 +1,3 @@
+1 x Connection ID: 123
+  column steel shape: W460X52 (US: W18X35)
+  diagonal shapes: 

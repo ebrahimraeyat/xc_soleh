@@ -219,7 +219,7 @@ steel_W = ASTM_materials.A36 # steel support W shapes
 steel_W.fy = 240e6
 steel_W.gammaM = 1.00
 # Profile geometry
-inner_column_profile = ASTM_materials.IShape(bf, tf_col, tw_col, hw_col_bot, steel_W, f"Wcol_ce")
+inner_column_profile = ASTM_materials.IShape(bf, tf_col, tw_col, hw_col_bot, steel_W, f"W18X35")
 beam2_profile = ASTM_materials.IShape(bf, tf_rafter, tw_col, hw_col_bot+.1, steel_W, f"isectionbeam2")
 
 # Mesh generation.
