@@ -6,17 +6,17 @@ G = 9.81
 loadCaseManager= lcm.LoadCaseManager(preprocessor)
 loadCaseNames= [
         'DL',
-        'SELF_DL',
+        # 'SELF-DL',
         # 'LR',
-        's_balanced',
-        's_unbalanced_left',
-        's_unbalanced_right',
-        'wx_pos',
-        'wx_neg',
-        'wy_pos',
-        'wy_neg',
-        'win_pos',
-        'win_neg',
+        'SBalanced',
+        'SUnbalancedLeft',
+        'SUnbalancedRight',
+        'wxPos',
+        'wxNeg',
+        'wyPos',
+        'wyNeg',
+        'winPos',
+        'winNeg',
         ]
 loadCaseManager.defineSimpleLoadCases(loadCaseNames) 
 
@@ -26,25 +26,25 @@ def applyAccelerationOnPermanentWeights(elementSet, accelVector):
 
 ## Dead load.
 ### Self weight
-cLC= loadCaseManager.setCurrentLoadCase('SELF_DL')
+# cLC= loadCaseManager.setCurrentLoadCase('SELF-DL')
+cLC= loadCaseManager.setCurrentLoadCase('DL')
 gravityVector= xc.Vector([0.0,0.0,G])
 applyAccelerationOnPermanentWeights(allMemberSet, gravityVector)
 ### Dead load.
-cLC= loadCaseManager.setCurrentLoadCase('DL')
 dead_load= (180 + 50)  * G #  N/m roof + z perlin
 for e in (beam1Set.elements + beam2Set.elements):
     e.vector3dUniformLoadGlobal(xc.Vector([0,0,-dead_load]))
 
 ## snow load.
 ### snow balanced load
-cLC= loadCaseManager.setCurrentLoadCase('s_balanced')
+cLC= loadCaseManager.setCurrentLoadCase('SBalanced')
 snow_load= 480 * G #N/m
 
 for e in (beam1Set.elements + beam2Set.elements):
     e.vector3dUniformLoadGlobal(xc.Vector([0,0,-snow_load]))
 
 ### snow unbalanced load left to right
-cLC = loadCaseManager.setCurrentLoadCase('s_unbalanced_left')
+cLC = loadCaseManager.setCurrentLoadCase('SUnbalancedLeft')
 snow_load = 80 * 6 * G
 for e in (beam1Set.elements + beam2Set.elements):
     x = e.getPosCentroid(True).x
@@ -58,7 +58,7 @@ for e in (beam1Set.elements + beam2Set.elements):
     e.vector3dUniformLoadGlobal(xc.Vector([0, 0, -i * snow_load]))
 
 ### snow unbalanced load right to left
-cLC = loadCaseManager.setCurrentLoadCase('s_unbalanced_right')
+cLC = loadCaseManager.setCurrentLoadCase('SUnbalancedRight')
 snow_load = 80 * 6 * G
 for e in (beam1Set.elements + beam2Set.elements):
     x = e.getPosCentroid(True).x
@@ -82,7 +82,7 @@ dist_between_frames = 6
 p = f"Iw * q * ct * cd * ce * cgXcp * {dist_between_frames} * 100"
 
 ### wind load in x+
-loadCaseManager.setCurrentLoadCase('wx_pos')
+loadCaseManager.setCurrentLoadCase('wxPos')
 cgXcp = (1 + 1.5) / 2
 wind_load = eval(p) * G
 for e in col_frame_a_set.elements:
@@ -108,7 +108,7 @@ for e in (beam1Set.elements + beam2Set.elements):
     e.vector3dUniformLoadLocal(xc.Vector([0, -wind_load, 0]))
 
 ### wind load in x-
-loadCaseManager.setCurrentLoadCase('wx_neg')
+loadCaseManager.setCurrentLoadCase('wxNeg')
 cgXcp = (.8 + 1.2) / 2
 wind_load = eval(p) * G
 for e in col_frame_a_set.elements:
@@ -134,7 +134,7 @@ for e in (beam1Set.elements + beam2Set.elements):
     e.vector3dUniformLoadLocal(xc.Vector([0, -wind_load, 0]))
 
 ### wind load in +y direction
-loadCaseManager.setCurrentLoadCase('wy_pos')
+loadCaseManager.setCurrentLoadCase('wyPos')
 cgXcp = (.85 + .9) / 2
 wind_load = eval(p) * G
 for e in col_frame_a_set.elements:
@@ -158,7 +158,7 @@ for e in (beam1Set.elements + beam2Set.elements):
     e.vector3dUniformLoadLocal(xc.Vector([0, -wind_load, 0]))
 
 ### wind load in -y direction
-loadCaseManager.setCurrentLoadCase('wy_neg')
+loadCaseManager.setCurrentLoadCase('wyNeg')
 cgXcp = (.85 + .9) / 2
 wind_load = eval(p) * G
 for e in col_frame_a_set.elements:
@@ -182,7 +182,7 @@ for e in (beam1Set.elements + beam2Set.elements):
     e.vector3dUniformLoadLocal(xc.Vector([0, -wind_load, 0]))
 
 ### positive interior wind load
-loadCaseManager.setCurrentLoadCase('win_pos')
+loadCaseManager.setCurrentLoadCase('winPos')
 wind_load = 195 * G
 for e in col_frame_a_set.elements:
     e.vector3dUniformLoadGlobal(xc.Vector([wind_load, 0, 0]))
@@ -195,7 +195,7 @@ for e in (beam1Set.elements + beam2Set.elements):
     e.vector3dUniformLoadLocal(xc.Vector([0, wind_load, 0]))
 
 ### negative interior wind load
-loadCaseManager.setCurrentLoadCase('win_neg')
+loadCaseManager.setCurrentLoadCase('winNeg')
 wind_load = 85 * G
 for e in col_frame_a_set.elements:
     e.vector3dUniformLoadGlobal(xc.Vector([-wind_load, 0, 0]))

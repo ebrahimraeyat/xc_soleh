@@ -170,7 +170,7 @@ sympy-plots-for-*.tex/
 # results
 results/*
 reports/*
-
+uls_reactions.csv
 
 # WinEdt
 *.bak
