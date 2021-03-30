@@ -168,8 +168,8 @@ sympy-plots-for-*.tex/
 .mypy_cache
 
 # results
-results
-reports
+results/*
+reports/*
 
 
 # WinEdt
