@@ -167,6 +167,10 @@ sympy-plots-for-*.tex/
 # mypy
 .mypy_cache
 
+# results
+results
+reports
+
 
 # WinEdt
 *.bak
