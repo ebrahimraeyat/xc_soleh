@@ -32,7 +32,7 @@ dy = 2.5
 slop = .2
 span = 24
 n = 0
-rafter_percent = 1 / 6
+rafter_percent = 4.5 / span
 
 dx = rafter_percent * span
 x1 = 0

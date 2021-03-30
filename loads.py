@@ -13,7 +13,8 @@ loadCaseNames= [
         's_unbalanced_right',
         'wx_pos',
         'wx_neg',
-        # 'wy',
+        'wy_pos',
+        'wy_neg',
         'win_pos',
         'win_neg',
         ]
@@ -71,13 +72,24 @@ for e in (beam1Set.elements + beam2Set.elements):
     e.vector3dUniformLoadGlobal(xc.Vector([0, 0, -i * snow_load]))
 
 ## wind load
+Iw = 1
+q = .47
+ct = 1
+cd = .85
+z = h_col + .5 * dy
+ce = max((z / 10) ** .2, .9)
+dist_between_frames = 6
+p = f"Iw * q * ct * cd * ce * cgXcp * {dist_between_frames} * 100"
+
 ### wind load in x+
 loadCaseManager.setCurrentLoadCase('wx_pos')
-wind_load = 210 * G
+cgXcp = (1 + 1.5) / 2
+wind_load = eval(p) * G
 for e in col_frame_a_set.elements:
     e.vector3dUniformLoadGlobal(xc.Vector([wind_load, 0, 0]))
 
-wind_load = 150 * G
+cgXcp = (.8 + 1.2) / 2
+wind_load = eval(p) * G
 for e in col_frame_g_set.elements:
     e.vector3dUniformLoadGlobal(xc.Vector([wind_load, 0, 0]))
 
@@ -88,18 +100,22 @@ for e in (beam1Set.elements + beam2Set.elements):
         x5 < x < x7,
         x9 < x < x11,
         ]):
-        wind_load = 360 * G
+        cgXcp = (1.3 + 2) / 2
+        wind_load = eval(p) * G
     else:
-        wind_load = 190 * G
+        cgXcp = (1.3 + .9) / 2
+        wind_load = eval(p) * G
     e.vector3dUniformLoadLocal(xc.Vector([0, -wind_load, 0]))
 
 ### wind load in x-
 loadCaseManager.setCurrentLoadCase('wx_neg')
-wind_load = 150 * G
+cgXcp = (.8 + 1.2) / 2
+wind_load = eval(p) * G
 for e in col_frame_a_set.elements:
     e.vector3dUniformLoadGlobal(xc.Vector([-wind_load, 0, 0]))
 
-wind_load = 210 * G
+cgXcp = (1 + 1.5) / 2
+wind_load = eval(p) * G
 for e in col_frame_g_set.elements:
     e.vector3dUniformLoadGlobal(xc.Vector([-wind_load, 0, 0]))
 
@@ -110,9 +126,59 @@ for e in (beam1Set.elements + beam2Set.elements):
         x5 < x < x7,
         x9 < x < x11,
         ]):
-        wind_load = 190 * G
+        cgXcp = (1.3 + .9) / 2
+        wind_load = eval(p) * G
     else:
-        wind_load = 360 * G
+        cgXcp = (1.3 + 2) / 2
+        wind_load = eval(p) * G
+    e.vector3dUniformLoadLocal(xc.Vector([0, -wind_load, 0]))
+
+### wind load in +y direction
+loadCaseManager.setCurrentLoadCase('wy_pos')
+cgXcp = (.85 + .9) / 2
+wind_load = eval(p) * G
+for e in col_frame_a_set.elements:
+    e.vector3dUniformLoadGlobal(xc.Vector([-wind_load, 0, 0]))
+
+for e in col_frame_g_set.elements:
+    e.vector3dUniformLoadGlobal(xc.Vector([wind_load, 0, 0]))
+
+for e in (beam1Set.elements + beam2Set.elements):
+    x = e.getPosCentroid(True).x
+    if any([
+        x1 < x < x3,
+        x5 < x < x7,
+        x9 < x < x11,
+        ]):
+        cgXcp = (1 + .7) / 2
+        wind_load = eval(p) * G
+    else:
+        cgXcp = (1.3 + 2) / 2
+        wind_load = eval(p) * G
+    e.vector3dUniformLoadLocal(xc.Vector([0, -wind_load, 0]))
+
+### wind load in -y direction
+loadCaseManager.setCurrentLoadCase('wy_neg')
+cgXcp = (.85 + .9) / 2
+wind_load = eval(p) * G
+for e in col_frame_a_set.elements:
+    e.vector3dUniformLoadGlobal(xc.Vector([-wind_load, 0, 0]))
+
+for e in col_frame_g_set.elements:
+    e.vector3dUniformLoadGlobal(xc.Vector([wind_load, 0, 0]))
+
+for e in (beam1Set.elements + beam2Set.elements):
+    x = e.getPosCentroid(True).x
+    if any([
+        x1 < x < x3,
+        x5 < x < x7,
+        x9 < x < x11,
+        ]):
+        cgXcp = (1.3 + 2) / 2
+        wind_load = eval(p) * G
+    else:
+        cgXcp = (1 + .7) / 2
+        wind_load = eval(p) * G
     e.vector3dUniformLoadLocal(xc.Vector([0, -wind_load, 0]))
 
 ### positive interior wind load

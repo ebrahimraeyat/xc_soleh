@@ -26,13 +26,14 @@ oh = output_handler.OutputHandler(modelSpace)
 # loadCaseNames= [
 #         'DL',
 #         'SELF_DL',
-#         # 'LR',
+#         'LR',
 #         's_balanced',
 #         's_unbalanced_left',
 #         's_unbalanced_right',
 #         'wx_pos',
 #         'wx_neg',
-#         # 'wy',
+#         'wy_pos',
+#         'wy_neg',
 #         'win_pos',
 #         'win_neg',
 #         ]
