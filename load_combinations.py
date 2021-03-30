@@ -47,7 +47,8 @@ combContainer.ULS.perm.add('ULS04j', '1.2 * DL + 1.2 * SELF_DL+.5*s_unbalanced_l
 
 combContainer.ULS.perm.add('ULS05a', '0.9 * DL + .9 * SELF_DL+1.6*wx_pos+1.6*win_neg')
 combContainer.ULS.perm.add('ULS05b', '0.9 * DL + .9 * SELF_DL+1.6*wx_neg+1.6*win_neg')
-# combContainer.ULS.perm.add('ULS05c', '0.9 * DL + .9 * SELF_DL+1.6*wy+1.6*win_neg')
+combContainer.ULS.perm.add('ULS05c', '0.9 * DL + .9 * SELF_DL+1.6*wy_pos+1.6*win_neg')
+combContainer.ULS.perm.add('ULS05c', '0.9 * DL + .9 * SELF_DL+1.6*wy_neg+1.6*win_neg')
 
 # Dump combination definition into XC.
 combContainer.dumpCombinations(preprocessor)
