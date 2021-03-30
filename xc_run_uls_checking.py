@@ -90,7 +90,7 @@ for beam in beamLines:
 
     i = hws.index(max(hws))
     shape = beamLine[i].getElements[0].getProp('crossSection')
-    if length <= h_col / 2:
+    if beamLine[i].getCentroid().z < h_col::
         unbracedLengthX = length
         unbracedLengthZ = h_col
         unbracedLengthY = length
