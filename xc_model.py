@@ -275,7 +275,7 @@ allMemberSet = modelSpace.setSum('allMemberSet', [
 # Graphic stuff.
 oh = output_handler.OutputHandler(modelSpace)
 oh.getCameraParameters().viewName = "YNeg"
-# oh.displayFEMesh()
+oh.displayFEMesh()
 # oh.displayBlocks()
 # oh.displayLocalAxes()
 # oh.displayLoads()
